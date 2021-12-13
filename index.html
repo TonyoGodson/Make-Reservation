@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type = "text/css" href="index.css">
+    <title>Make Reservation</title>
+</head>
+<body>
+    
+  <form name = "myForm" onsubmit = "return validateForm()">
+    <div class = "parent-div">
+        <ul style = "list-style-type: none;">
+            <li>
+                <div class = "name-div">
+                <label for = "" class = "txt">Name</label>
+                <input type = "text" name = "name" class = "name-input" ><br>
+                <small id = "name-error" class = "errormsg"></small>
+                </div>
+            </li>
+            <li>
+                <div class = "email-div">
+                <label for = "">Email</label>
+                <input type = "email" name = "email" class = "email-input"><br>
+                <small id = "email-error" class = "errormsg"></small>
+                </div>
+            </li>
+            <li>
+                <div class = "number-of-people-div">
+                <label for = "">Pick a date</label>
+                
+                <input type = "text" name = "month" min = "2021/12/12"  class = "datte"  placeholder = "MM"/>
+                <input type = "text" name = "day" min = "2021/12/12"  class = "datte"  placeholder = "DD"/>
+                <input type = "text" name = "year" min = "2021/12/12"  class = "datte"  placeholder = "YYYY"/>
+            </li>
+            <li>
+                <div class = "number-of-people-div">
+                <label for = "">Pick a time</label>
+                <input type = "text" name = "hours" min = "2021/12/12"  class = "datte"  placeholder = "MM"/>
+                <input type = "text" name = "mins" min = "2021/12/12"  class = "datte"  placeholder = "DD"/>
+                <select class = "datte">
+                    <option>AM</option>
+                    <option>PM</option>
+                </select>
+                </div>
+            </li>
+            <li>
+                <div class = "button-div">
+                    <input type = "button" name = "decrease" class = "btn1" value="-" onclick = "decrease()"/>
+                    <label class = "txt" id = "count">0</label>
+                    <input type = "button" name = "increase" class = "btn2" value="+" onclick = "increase()"/>
+                </div>
+                <input type = "submit" id = "reserve" onclick = "validateForm()" class = "btn3" value=" MAKE RESERVATION"/>
+            </li>
+        </ul>
+    </div>
+   </form>
+
+    <script>
+        function validateForm(){
+            let name = document.forms["myForm"]["name"].value;
+            let email = document.forms["myForm"]["email"].value;
+            let datte = document.forms["myForm"]["date"].value;
+            let timme = document.forms["myForm"]["time"].value;
+
+            if(name == "" || name.length <= 3){
+                var msg = "Name is too short or name field is empty.";
+                document.getElementById("name-error").innerText = msg;
+                alert("Name is too short or name field is empty.");
+                return false;
+            } 
+
+           var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            if(!filter.test(email)){
+                var msg = "Email address is empty or invalid.";
+                email.focus;
+                document.getElementById("email-error").innerText = msg;
+               // alert("Name is too short or name field is empty.");
+                return false;
+            }
+        }/*
+        document.getElementById("reserve").addEventListener("click", function(){
+            validateForm();
+        });*/
+
+        var counter = 0;
+        function decrease(){
+            counter -= 1;
+            if(counter <= 0){
+                counter = 0;
+                document.getElementById("count").innerText = counter;
+              }
+            else if(counter == 1){
+                 document.getElementById("count").innerHTML = counter + " Person";
+            }
+            else{
+                document.getElementById("count").innerHTML = counter + " People";   
+            }
+        }
+        function increase(){
+            counter += 1;
+            if(counter <= 0){
+                counter = 0;
+                document.getElementById("count").innerText = counter;
+              }
+            else if(counter == 1){
+                 document.getElementById("count").innerHTML = counter + " Person";
+            }
+            else{
+                document.getElementById("count").innerHTML = counter + " People";   
+            }
+        }
+    </script>
+</body>
+</html>
